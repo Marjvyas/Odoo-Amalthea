@@ -4,6 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css';
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
+  // Check if user is already logged in
+  React.useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,7 +24,6 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
   const { name, email, password, companyName, country } = formData;
 
@@ -42,8 +51,8 @@ const RegisterPage = () => {
 
     try {
       await authService.register(name, email, password, companyName || 'Default Company', country);
-      alert('Registration successful! Please login.');
-      navigate('/login');
+      // Registration automatically logs in the user, so redirect to dashboard
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message);
     } finally {

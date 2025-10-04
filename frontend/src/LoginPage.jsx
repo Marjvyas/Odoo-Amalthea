@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import authService from '../authService';
 import './LoginPage.css';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  // Check if user is already logged in
+  React.useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
+
   // State to hold the form input values
   const [formData, setFormData] = useState({
     email: '',
@@ -30,9 +41,8 @@ const LoginPage = () => {
       // Call the login function from our service
       await authService.login(email, password);
       
-      alert('Login successful!'); // Placeholder for success
-      // In a real app, you would redirect the user:
-      // window.location.href = '/dashboard';
+      // Redirect to dashboard after successful login
+      navigate('/dashboard');
     } catch (err) {
       // If the service throws an error, display it to the user
       setError(err.message);
