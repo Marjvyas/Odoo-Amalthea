@@ -39,6 +39,12 @@ const Navigation = ({ userRole = 'Admin' }) => {
       roles: ['Manager', 'Admin'] 
     },
     { 
+      path: '/admin/role-assignment', 
+      name: 'Role Assignment', 
+      icon: '👑', 
+      roles: ['Admin'] 
+    },
+    { 
       path: '/users', 
       name: 'User Management', 
       icon: '👥', 

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import ExpenseSubmission from './pages/ExpenseSubmission';
 import MyExpenses from './pages/MyExpenses';
 import Settings from './pages/Settings';
+import RoleAssignment from './pages/RoleAssignment';
 import AuthGuard from './components/AuthGuard';
 
 // Home page component
@@ -103,6 +104,11 @@ function App() {
         <Route path="/settings" element={
           <AuthGuard>
             <Settings />
+          </AuthGuard>
+        } />
+        <Route path="/admin/role-assignment" element={
+          <AuthGuard>
+            <RoleAssignment />
           </AuthGuard>
         } />
       </Routes>
